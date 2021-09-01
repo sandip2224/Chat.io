@@ -37,6 +37,10 @@ The website is live. Check it out [here](https://chatio64.herokuapp.com)
 | - |
 | ![media/work'.jpg](media/work'.jpg) |
 
+## 🚩New Updates
+
+- Added `{user} is typing` functionality.
+
 
 <!-- BUILT WITH -->  
 
