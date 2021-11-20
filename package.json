@@ -4,7 +4,7 @@
   "description": "Real-time chat application",
   "main": "server.js",
   "scripts": {
-    "build": "node server",
+    "start": "node server",
     "dev": "nodemon server"
   },
   "author": "Sandipan Das",
