@@ -1,7 +1,7 @@
 const chatForm = document.getElementById('chat-form')
 const msg = document.getElementById('msg')
 const chatDiv = document.querySelector('.chat-messages')
-const usersList = document.getElementById('users')
+const usersList = document.getElementById("users")
 
 // Retrieve username and room from URL
 const { username, room } = Qs.parse(location.search, {
@@ -9,8 +9,6 @@ const { username, room } = Qs.parse(location.search, {
 })
 
 const socket = io()
-
-// document.getElementById('typing').innerHTML = "USER IS TYPING"
 
 // Join chatroom
 socket.emit('joinRoom', { username, room })
@@ -54,12 +52,9 @@ function outputRoomUsers(room, users) {
         `;
 }
 
-var myVar;
-
 function onkeyFn() {
     socket.emit('starttype', `${username} is typing...`)
-    clearTimeout(myVar);
-    myVar = setTimeout(() => {
+    setTimeout(() => {
         socket.emit('stoptype', "")
     }, 2000);
 }

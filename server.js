@@ -18,14 +18,16 @@ io.on('connection', (socket) => {
     socket.on('joinRoom', ({ username, room }) => {
         const user = userJoin(socket.id, username, room)
 
+        // Pushes a user socket to the given room
         socket.join(user.room)
 
-        // Welcome adminMessage for client who connects
-        socket.to(user.room).emit('message', formatMessage('Admin', 'Welcome to ChatIO'))
+        // Welcome adminMessage for client alone who connects
+        socket.emit('message', formatMessage('Admin', `Welcome to ChatIO ${user.username}!!`))
 
-        // Broadcast when user connects
+        // Broadcast to everyone else when user connects
         socket.broadcast.to(user.room).emit('message', formatMessage('Admin', `${user.username} has joined the chat!!`))
 
+        // Triggered during keypress event on client side
         socket.on('starttype', (msg) => {
             socket.broadcast.to(user.room).emit('type', msg)
         })
@@ -34,7 +36,7 @@ io.on('connection', (socket) => {
             socket.broadcast.to(user.room).emit('type', msg)
         })
 
-        // Send users and room info to every client
+        // Send users and room info to every client in a room
         io.to(user.room).emit('roomUsers', {
             room: user.room,
             users: getRoomUsers(user.room)
@@ -62,6 +64,4 @@ io.on('connection', (socket) => {
 })
 
 const PORT = process.env.PORT || 3000
-server.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
-})
+server.listen(PORT, console.log(`Server running on port ${PORT}`))
