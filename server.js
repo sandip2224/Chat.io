@@ -1,16 +1,26 @@
 const express = require('express')
 const path = require('path')
 const http = require('http')
+const colors = require("colors")
 const socketio = require('socket.io')
+require("dotenv").config({ path: "./.env" })
+
+const formatMessage = require('./utils/messages')
+const { userJoin, getCurrentUser, userLeave, getRoomUsers } = require('./utils/users')
+const connectDB = require('./config/db')
 
 const app = express()
 const server = http.createServer(app)
 const io = socketio(server)
 
-const formatMessage = require('./utils/messages')
-const { userJoin, getCurrentUser, userLeave, getRoomUsers } = require('./utils/users')
+const chatModel = require('./src/models/Chat')
+
+connectDB()
+
+app.set('view engine', 'ejs')
 
 app.use(express.static(path.join(__dirname, 'public')))
+app.use('/', require('./src/routes/chatRoute'))
 
 // Run when client connects
 io.on('connection', (socket) => {
@@ -44,8 +54,18 @@ io.on('connection', (socket) => {
     })
 
     // Listen for chat message from client
-    socket.on('chatMessage', (msg) => {
+    socket.on('chatMessage', async (msg) => {
         const user = getCurrentUser(socket.id)
+        const obj = {
+            username: `${user.username}`,
+            // time: `${user.last}`,
+            time: `1234`,
+            message: `${msg}`,
+            room: `${user.room}`
+        }
+        // console.log(obj)
+        const newMsg = new chatModel(obj)
+        await newMsg.save()
         io.to(user.room).emit('message', formatMessage(user.username, msg));
     })
 
@@ -64,4 +84,10 @@ io.on('connection', (socket) => {
 })
 
 const PORT = process.env.PORT || 3000
-server.listen(PORT, console.log(`Server running on port ${PORT}`))
+const conn = server.listen(PORT, console.log(`Server running on port ${PORT}`))
+
+// Handle unhandled promise rejections
+process.on("unhandledRejection", (err, promise) => {
+    console.log(`Error: ${err.message}`.red)
+    conn.close(() => process.exit(1))
+})
