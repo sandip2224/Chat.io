@@ -56,14 +56,13 @@ io.on('connection', (socket) => {
     // Listen for chat message from client
     socket.on('chatMessage', async (msg) => {
         const user = getCurrentUser(socket.id)
+        const frmtMsg = formatMessage(user.username, msg)
         const obj = {
-            username: `${user.username}`,
-            // time: `${user.last}`,
-            time: `1234`,
-            message: `${msg}`,
+            username: `${frmtMsg.username}`,
+            time: `${frmtMsg.time}`,
+            message: `${frmtMsg.text}`,
             room: `${user.room}`
         }
-        // console.log(obj)
         const newMsg = new chatModel(obj)
         await newMsg.save()
         io.to(user.room).emit('message', formatMessage(user.username, msg));
