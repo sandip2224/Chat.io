@@ -1,7 +1,6 @@
-var url = new URL("http://foo.bar/");
-
-// If your expected result is "http://foo.bar/?x=1&y=2&x=42"
-url.searchParams.append('x', 42);
-url.searchParams.append('y', 21);
-
-console.log(url.href)
+let date = new Date()
+var y = date.toLocaleString('en-US', { month: '2-digit' })
+var x = date.toLocaleString('en-US', { day: '2-digit' })
+var z = date.getFullYear()
+var dateVal = x + "/" + y + "/" + z
+console.log(dateVal)

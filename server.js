@@ -61,7 +61,7 @@ io.on('connection', (socket) => {
         const frmtMsg = formatMessage(user.username, msg)
         const obj = {
             username: `${frmtMsg.username}`,
-            time: `${frmtMsg.time}`,
+            time: `${frmtMsg.time} (${frmtMsg.date})`,
             message: `${frmtMsg.text}`,
             room: `${user.room}`
         }
