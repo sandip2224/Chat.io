@@ -7,7 +7,7 @@ require("dotenv").config({ path: "./.env" })
 
 const formatMessage = require('./utils/messages')
 const { userJoin, getCurrentUser, userLeave, getRoomUsers } = require('./utils/users')
-const connectDB = require('./config/db')
+const connectDB = require('./src/config/db')
 
 const app = express()
 const server = http.createServer(app)
