@@ -201,6 +201,10 @@ select {
 	width: 100%;
 }
 
+#user-name{
+	display: none;
+}
+
 @media (max-width: 700px) {
 	.chat-main {
 		display: block;
@@ -210,3 +214,4 @@ select {
 		display: none;
 	}
 }
+

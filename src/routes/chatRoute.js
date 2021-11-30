@@ -7,9 +7,9 @@ router.get('/', (req, res) => {
     res.render('index')
 })
 
-router.get('/chat', async (req, res) => {
+router.post('/chat', async (req, res) => {
     const chats = await chatModel.find()
-    res.render('chat', { chats: chats })
+    res.render('chat', { chats: chats, roomVal: req.body.room, userVal: req.body.username })
 })
 
 module.exports = router

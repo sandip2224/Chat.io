@@ -3,10 +3,17 @@ const msg = document.getElementById('msg')
 const chatDiv = document.querySelector('.chat-messages')
 const usersList = document.getElementById("users")
 
+const roomname = document.getElementById('room-name').innerText
+
+// console.log('Roomname ' + roomname)
+
 // Retrieve username and room from URL
-const { username, room } = Qs.parse(location.search, {
-    ignoreQueryPrefix: true
-})
+// const { username, room } = Qs.parse(location.search, {
+//     ignoreQueryPrefix: true
+// })
+
+const username = document.getElementById('user-name').innerHTML
+const room = document.getElementById('room-name').innerHTML
 
 const socket = io()
 
