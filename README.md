@@ -16,15 +16,17 @@ The website is live. Check it out [here](https://chatio64.herokuapp.com)
 
 ## Built With
 
-<p align="left">
-   <img alt="HTML5" src="https://img.shields.io/badge/html%20-%23323330.svg?&style=for-the-badge&logo=html5&logoColor=%23F7DF1E"/>
-   <img alt="CSS3" src="https://img.shields.io/badge/css%20-%23323330.svg?&style=for-the-badge&logo=css3&logoColor=%23F7DF1E"/>
-   <img alt="JavaScript" src="https://img.shields.io/badge/javascript%20-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"/>
-   <img alt="Node.js" src="https://img.shields.io/badge/node.js-%2343853D.svg?style=for-the-badge&logo=node.js&logoColor=white"/>
-   <img alt="Express.js" src="https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB"/>
-   <img alt="Socket" src="https://img.shields.io/badge/socket.io-%23404d59.svg?style=for-the-badge&logo=socket.io&logoColor=%2361DAFB"/>
-</p>  
-
+- Frontend
+   - EJS Templates
+   - CSS
+- Backend
+   - Node.js
+   - Express.js
+- Libraries
+   - Mongoose
+   - Socket.io
+- Database
+   - MongoDB Atlas
 ---
 
 ## 🔥 Screenshots
@@ -40,6 +42,7 @@ The website is live. Check it out [here](https://chatio64.herokuapp.com)
 ## 🚩New Updates
 
 - Added `{user} is typing` functionality.
+- Added persistent chat storage in MongoDB Atlas
 
 
 <!-- BUILT WITH -->  
@@ -57,9 +60,16 @@ The website is live. Check it out [here](https://chatio64.herokuapp.com)
 
    ```
    npm install
+   npm install -D
    ```  
+**3. Create a .env file in root directory and add the following key-value pair**  
 
-**3. Run server in development mode at `localhost:3000` using**  
+  ```
+  MONGO_URI=<Unique MongoDB Cluster URL>
+  ```
+
+
+**4. Run server in development mode at `localhost:3000` using**  
 
   ```
   npm run dev
