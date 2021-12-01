@@ -8,12 +8,11 @@ require("dotenv").config({ path: "./.env" })
 const formatMessage = require('./utils/messages')
 const { userJoin, getCurrentUser, userLeave, getRoomUsers } = require('./utils/users')
 const connectDB = require('./src/config/db')
+const chatModel = require('./src/models/Chat')
 
 const app = express()
 const server = http.createServer(app)
 const io = socketio(server)
-
-const chatModel = require('./src/models/Chat')
 
 connectDB()
 
@@ -67,7 +66,7 @@ io.on('connection', (socket) => {
         }
         const newMsg = new chatModel(obj)
         await newMsg.save()
-        io.to(user.room).emit('message', formatMessage(user.username, msg));
+        io.to(user.room).emit('message', frmtMsg)
     })
 
     // Run when client disconnects
@@ -84,8 +83,7 @@ io.on('connection', (socket) => {
     })
 })
 
-const PORT = process.env.PORT || 3000
-const conn = server.listen(PORT, console.log(`Server running on port ${PORT}`))
+const conn = server.listen(process.env.PORT || 3000, console.log(`Server running on port ${process.env.PORT || 3000}`))
 
 // Handle unhandled promise rejections
 process.on("unhandledRejection", (err, promise) => {

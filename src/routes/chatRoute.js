@@ -2,7 +2,6 @@ const router = require('express').Router()
 
 const chatModel = require('../models/Chat')
 
-
 router.get('/', (req, res) => {
     res.render('index')
 })
