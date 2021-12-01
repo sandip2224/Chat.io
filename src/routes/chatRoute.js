@@ -12,4 +12,8 @@ router.post('/chat', async (req, res) => {
     res.render('chat', { chats: chats, roomVal: req.body.room, userVal: req.body.username })
 })
 
+router.get('/chat', (req, res) => {
+    res.redirect('/')
+})
+
 module.exports = router
