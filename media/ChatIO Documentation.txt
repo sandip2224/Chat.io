@@ -1,0 +1,63 @@
+1.
+------------------------------------------------------------
+socket.emit('joinRoom', { username, room })
+socket.on('joinRoom', ({ username, room }) => {}
+------------------------------------------------------------
+
+
+2.
+------------------------------------------------------------
+io.to(user.room).emit('roomUsers', { 
+    room: user.room, users: getRoomUsers(user.room)
+})
+socket.on('roomUsers', ({ room, users }) => {
+    outputRoomUsers(room, users)
+})
+------------------------------------------------------------
+
+
+3.
+------------------------------------------------------------
+socket.emit('chatMessage', msg.value)
+socket.on('chatMessage', (msg) => {
+    const user = getCurrentUser(socket.id)
+    io.to(user.room).emit('message', formatMessage(user.username, msg));
+})
+------------------------------------------------------------
+
+
+4.
+------------------------------------------------------------
+socket.to(user.room).emit('message', formatMessage('Admin', 'Welcome to ChatIO'))
+socket.broadcast.to(user.room).emit('message', formatMessage('Admin', `${user.username} has joined the chat!!`))
+socket.on('message', (msg) => {
+    displayMessage(msg)
+    chatDiv.scrollTop = chatDiv.scrollHeight;
+})
+------------------------------------------------------------
+
+
+5.
+------------------------------------------------------------
+io.to(user.room).emit('roomUsers', {
+    room: user.room,
+    users: getRoomUsers(user.room)
+})
+socket.on('roomUsers', ({ room, users }) => {
+    outputRoomUsers(room, users)
+})
+------------------------------------------------------------
+
+6.
+------------------------------------------------------------
+socket.emit('starttype', `${username} is typing...`)
+socket.on('starttype', (msg) => {
+    socket.broadcast.to(user.room).emit('type', msg)
+})
+------------------------------------------------------------
+
+7.
+socket.emit('stoptype', "")
+socket.on('stoptype', (msg) => {
+   socket.broadcast.to(user.room).emit('type', msg)
+})
