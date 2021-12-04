@@ -7,8 +7,10 @@ router.get('/', (req, res) => {
 })
 
 router.post('/chat', async (req, res) => {
+    if ((req.body.room)[1].length === 0) roomName = (req.body.room)[0]
+    else roomName = (req.body.room)[1]
     const chats = await chatModel.find()
-    res.render('chat', { chats: chats, roomVal: req.body.room, userVal: req.body.username })
+    res.render('chat', { chats: chats, roomVal: roomName, userVal: req.body.username })
 })
 
 router.get('/chat', (req, res) => {

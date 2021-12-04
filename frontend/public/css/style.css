@@ -205,6 +205,15 @@ select {
 	display: none;
 }
 
+#or {
+	text-align: center;
+	margin-top: 15px;
+}
+
+#or span{
+	font-weight: 500;
+}
+
 @media (max-width: 700px) {
 	.chat-main {
 		display: block;
