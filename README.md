@@ -33,11 +33,11 @@ The website is live. Check it out [here](https://chatio64.herokuapp.com)
 
 | Landing Page |
 | - |
-| ![media/homepage.jpg](media/homepage.jpg) |
+| ![media/1.PNG](media/2.PNG) |
 
 | Chat Page |
 | - |
-| ![media/work'.jpg](media/work'.jpg) |
+| ![media/2.PNG](media/1.PNG) |
 
 ## 🚩New Updates
 
