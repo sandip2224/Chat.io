@@ -1,7 +1,7 @@
 const chatForm = document.getElementById('chat-form')
 const msg = document.getElementById('msg')
 const chatDiv = document.querySelector('.chat-messages')
-const usersList = document.getElementById("users")
+const usersList = document.getElementById('users')
 
 const roomname = document.getElementById('room-name').innerText
 const username = document.getElementById('user-name').innerHTML

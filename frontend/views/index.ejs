@@ -34,12 +34,23 @@
                     </select>
                     <h3 id="or">------- <span>OR</span> -------</h3>
                     <label for="room">Custom Room</label>
-                    <input type="text" name="room" placeholder=" Custom room name...">
+                    <input type="text" id="custom-room" name="room" placeholder=" Custom room name...">
                 </div>
                 <button type="submit" class="btn">Join Chat</button>
             </form>
         </main>
     </div>
+    <script>
+        const customRoomInput = document.getElementById("custom-room")
+        // Input event listener for custom room
+        customRoomInput.addEventListener('input', (e) => {
+            const customRoomName = e.target.value
+            if (customRoomName.length > 0)
+                document.getElementById("room").disabled = true
+            else
+                document.getElementById("room").disabled = false
+        })
+    </script>
 </body>
 
 </html>
