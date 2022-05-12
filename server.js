@@ -5,10 +5,10 @@ const colors = require("colors")
 const socketio = require('socket.io')
 require("dotenv").config({ path: "./.env" })
 
-const formatMessage = require('./frontend/utils/messages')
-const { userJoin, getCurrentUser, userLeave, getRoomUsers } = require('./frontend/utils/users')
-const connectDB = require('./backend/config/db')
-const chatModel = require('./backend/models/Chat')
+const formatMessage = require('./client/utils/messages')
+const { userJoin, getCurrentUser, userLeave, getRoomUsers } = require('./client/utils/users')
+const connectDB = require('./server/config/db')
+const chatModel = require('./server/models/Chat')
 
 const app = express()
 const server = http.createServer(app)
@@ -17,12 +17,12 @@ const io = socketio(server)
 connectDB()
 
 app.set('view engine', 'ejs')
-app.set('views', path.join(__dirname, 'frontend/views'));
+app.set('views', path.join(__dirname, 'client/views'));
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
-app.use(express.static(path.join(__dirname, 'frontend/public')))
-app.use('/', require('./backend/routes/chatRoute'))
+app.use(express.static(path.join(__dirname, 'client/public')))
+app.use('/', require('./server/routes/chatRoute'))
 
 // Run when client connects
 io.on('connection', (socket) => {
