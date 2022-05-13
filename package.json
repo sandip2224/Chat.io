@@ -4,8 +4,8 @@
   "description": "Real-time chat application with persistent chat history functionality",
   "main": "server.js",
   "scripts": {
-    "start": "node server",
-    "dev": "nodemon server"
+    "start": "node server/server",
+    "dev": "nodemon server/server"
   },
   "author": "Sandipan Das",
   "license": "ISC",

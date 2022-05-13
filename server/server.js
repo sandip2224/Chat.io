@@ -6,10 +6,10 @@ const socketio = require('socket.io')
 const webpush = require('web-push')
 require("dotenv").config({ path: "./.env" })
 
-const formatMessage = require('./client/utils/messages')
-const { userJoin, getCurrentUser, userLeave, getRoomUsers } = require('./client/utils/users')
-const connectDB = require('./server/config/db')
-const chatModel = require('./server/models/Chat')
+const formatMessage = require('../client/utils/messages')
+const { userJoin, getCurrentUser, userLeave, getRoomUsers } = require('../client/utils/users')
+const connectDB = require('./config/db')
+const chatModel = require('./models/Chat')
 
 const app = express()
 const server = http.createServer(app)
@@ -27,13 +27,13 @@ webpush.setVapidDetails('mailto:test@test.com', vapidKeys.publicKey, vapidKeys.p
 connectDB()
 
 app.set('view engine', 'ejs')
-app.set('views', path.join(__dirname, 'client/views'));
+app.set('views', path.join(__dirname, '../client/views'));
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
-app.use(express.static(path.join(__dirname, 'client/public')))
-app.use('/', require('./server/routes/chatRoute'))
+app.use(express.static(path.join(__dirname, '../client/public')))
+app.use('/', require('./routes/chatRoute'))
 
 app.post('/register-push-device', (req, res) => {
 	console.log('Registering user subscription...')
@@ -49,7 +49,6 @@ app.post('/register-push-device', (req, res) => {
 app.post('/send-notification', (req, res) => {
 	const notifBody = req.body.msg.text
 	console.log('Sending notification: ', notifBody)
-	console.log(req.body)
 	subscriptions.forEach((item) => {
 		if (item.room === req.body.msg.room && item.name === req.body.username) {
 			webpush.sendNotification(item.subscription, notifBody).catch(error => {
