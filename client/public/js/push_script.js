@@ -29,6 +29,33 @@ const subscribe = async () => {
 	}
 }
 
+const unsubscribe = async () => {
+	console.log('Inside unsubscriber')
+	try {
+		await navigator.serviceWorker.getRegistration()
+		const subscription = await registration.pushManager.getSubscription()
+		if (subscription) {
+			await subscription.unsubscribe()
+			console.log('Successfully unsubscribed')
+			fetch('http://localhost:3000/deregister-push-device', {
+				method: 'DELETE',
+				headers: {
+					'Content-type': 'application/json'
+				},
+				body: [
+					JSON.stringify({ subscription: subscription, name: uname, room: rname })
+				]
+			})
+		}
+		else {
+			console.log('OOPS')
+		}
+	}
+	catch (err) {
+		console.log('Unsubscription failed', err)
+	}
+}
+
 if ('serviceWorker' in navigator) {
 	window.addEventListener('load', async () => {
 		try {

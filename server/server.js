@@ -41,6 +41,12 @@ const userExists = (reqBodyItems) => {
 	)
 }
 
+const filteredUsers = (reqBodyItems) => {
+	return subscriptions.filter(item => {
+		return !(item.subscription.endpoint === reqBodyItems.subscription.endpoint && item.name === reqBodyItems.name && item.room === reqBodyItems.room)
+	})
+}
+
 app.post('/register-push-device', (req, res) => {
 	console.log('Registering user subscription...')
 
@@ -56,10 +62,17 @@ app.post('/register-push-device', (req, res) => {
 	res.end()
 })
 
+app.delete('/deregister-push-device', (req, res) => {
+	console.log('Unregistering user subscription...')
+	subscriptions = filteredUsers(req.body)
+	console.log("Modified subscriptions list length: ", subscriptions.length)
+	res.end()
+})
+
 app.post('/send-notification', (req, res) => {
 	const notifBody = {
 		msg: req.body.msg.text,
-		user: req.body.username
+		user: req.body.msg.username
 	}
 	console.log('Sending notification: ', notifBody)
 	subscriptions.forEach((item) => {
