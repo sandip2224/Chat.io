@@ -47,20 +47,20 @@
                 <input id="msg" type="text" placeholder="Enter Message" required autocomplete="off"
                     onkeypress="onkeyFn()" required />
                 <button class="btn"><i class="fas fa-paper-plane"></i> Send</button>
+                <button class="btn" onclick="subscribe()">Subscribe</button>
             </form>
         </div>
     </div>
     <script>
-        var roomVal1 =<%- JSON.stringify(roomVal) %>
-        var userVal1 =<%- JSON.stringify(userVal) %>
-        document.getElementById('room-name').innerHTML=roomVal1
-        document.getElementById('user-name').innerHTML=userVal1
+        document.getElementById('room-name').innerHTML=<%-JSON.stringify(roomVal) %>
+        document.getElementById('user-name').innerHTML=<%-JSON.stringify(userVal) %>
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.10.1/qs.min.js"
         integrity="sha512-aTKlYRb1QfU1jlF3k+aS4AqTpnTXci4R79mkdie/bp6Xm51O5O3ESAYhvg6zoicj/PD6VYY0XrYwsWLcvGiKZQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/push_script.js"></script>
 </body>
 
 </html>
