@@ -36,27 +36,24 @@ app.use(express.static(path.join(__dirname, 'client/public')))
 app.use('/', require('./server/routes/chatRoute'))
 
 app.post('/register-push-device', (req, res) => {
-	console.log('Saving subscription...')
-	// console.log(req.body.name)
-	// console.log(req.body.room)
-	// console.log(req.body.subscription)
+	console.log('Registering user subscription...')
 	subscriptions.push({
 		subscription: req.body.subscription,
 		name: req.body.name,
 		room: req.body.room
 	})
-	console.log(subscriptions.length)
+	console.log(subscriptions)
 	res.end()
 })
 
 app.post('/send-notification', (req, res) => {
-	console.log('Sending notification...')
 	const notifBody = req.body.msg.text
-	console.log(notifBody)
+	console.log('Sending notification: ', notifBody)
+	console.log(req.body)
 	subscriptions.forEach((item) => {
-		if (item.room === req.body.msg.room) {
-			webpush.sendNotification(item.subscription, notifBody).catch((ex) => {
-				console.log(ex)
+		if (item.room === req.body.msg.room && item.name === req.body.username) {
+			webpush.sendNotification(item.subscription, notifBody).catch(error => {
+				console.error(error)
 			})
 		}
 	})

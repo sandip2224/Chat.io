@@ -8,7 +8,7 @@ let registration;
 const subscribe = async () => {
 	console.log('Inside subscriber')
 	try {
-		const subscription1 = registration.pushManager.getSubscription()
+		await registration.pushManager.getSubscription()
 		const subscription = await registration.pushManager.subscribe({
 			userVisibleOnly: true,
 			applicationServerKey: VAPID_PUBLIC

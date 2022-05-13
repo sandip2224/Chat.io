@@ -26,14 +26,14 @@ chatForm.addEventListener('submit', (e) => {
 //  Receiving message from server
 socket.on('message', (msg) => {
 	displayMessage(msg)
-	if (msg.username !== 'Admin') {
+	if (msg.username !== 'Admin' && msg.username !== username) {
 		fetch('http://localhost:3000/send-notification', {
 			method: 'POST',
 			headers: {
 				'Content-type': 'application/json'
 			},
 			body: [
-				JSON.stringify({ msg: msg })
+				JSON.stringify({ msg, username })
 			]
 		})
 	}
