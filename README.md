@@ -1,7 +1,7 @@
 # ChatIO🚀
 
 <p align="center">
-   <img src="media/banner1.gif" alt="Logo"/>
+   <img src="client/media/banner1.gif" alt="Logo"/>
 </p>
 <!-- PROJECT LOGO -->
 
@@ -33,16 +33,17 @@ The website is live. Check it out [here](https://chatio64.herokuapp.com)
 
 | Landing Page |
 | - |
-| ![media/1.PNG](media/1.PNG) |
+| ![client/media/1.PNG](media/1.PNG) |
 
 | Chat Page |
 | - |
-| ![media/2.PNG](media/2.PNG) |
+| ![client/media/2.PNG](media/2.PNG) |
 
 ## 🚩New Updates
 
 - Added `{user} is typing` functionality.
 - Added persistent chat storage in MongoDB Atlas
+- Added push notification support on local environment
 
 
 <!-- BUILT WITH -->  
@@ -52,22 +53,26 @@ The website is live. Check it out [here](https://chatio64.herokuapp.com)
 **1. Fork and clone this repository using**
 
    ```
-   git clone https://github.com/sandip2224/ChatIO.git
-   cd ChatIO/
+   git clone https://github.com/sandip2224/ChatIO.git && cd ChatIO/
    ```  
    
 **2. Install required dependencies/dev dependencies using**  
 
    ```
-   npm install
-   npm install -D
+   npm install && npm install -D && touch .env
    ```  
-**3. Create a .env file in root directory and add the following key-value pair**  
+**3. Add the following key-value pairs inside the .env file**  
+
+> Generate the VAPID keys using the following command:  
+> ```
+> ./node_modules/.bin/web-push generate-vapid-keys
+> ```
 
   ```
   MONGO_URI=<Unique MongoDB Cluster URL>
+  PUBLIC_KEY=<Public VAPID Key>
+  PRIVATE_KEY=<Private VAPID Key>
   ```
-
 
 **4. Run server in development mode at `localhost:3000` using**  
 
