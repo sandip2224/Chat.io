@@ -35,23 +35,36 @@ app.use(express.json())
 app.use(express.static(path.join(__dirname, '../client/public')))
 app.use('/', require('./routes/chatRoute'))
 
+const userExists = (reqBodyItems) => {
+	return subscriptions.some(item =>
+		item.subscription.endpoint === reqBodyItems.subscription.endpoint && item.name === reqBodyItems.name && item.room === reqBodyItems.room
+	)
+}
+
 app.post('/register-push-device', (req, res) => {
 	console.log('Registering user subscription...')
-	subscriptions.push({
-		subscription: req.body.subscription,
-		name: req.body.name,
-		room: req.body.room
-	})
-	console.log(subscriptions)
+
+	var flag = userExists(req.body)
+	if (!flag) {
+		subscriptions.push({
+			subscription: req.body.subscription,
+			name: req.body.name,
+			room: req.body.room
+		})
+	}
+	console.log("Subscriptions list length: ", subscriptions.length)
 	res.end()
 })
 
 app.post('/send-notification', (req, res) => {
-	const notifBody = req.body.msg.text
+	const notifBody = {
+		msg: req.body.msg.text,
+		user: req.body.username
+	}
 	console.log('Sending notification: ', notifBody)
 	subscriptions.forEach((item) => {
 		if (item.room === req.body.msg.room && item.name === req.body.username) {
-			webpush.sendNotification(item.subscription, notifBody).catch(error => {
+			webpush.sendNotification(item.subscription, JSON.stringify(notifBody)).catch(error => {
 				console.error(error)
 			})
 		}
