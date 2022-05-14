@@ -1,8 +1,5 @@
 # ChatIO🚀
 
-<p align="center">
-   <img src="client/media/banner1.gif" alt="Logo"/>
-</p>
 <!-- PROJECT LOGO -->
 
 [![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg?style=for-the-badge)](http://shields.io/)
@@ -28,6 +25,10 @@ The website is live. Check it out [here](https://chatio64.herokuapp.com)
 - Database
    - MongoDB Atlas
 ---
+
+# 📈 UML Diagram
+
+![ChatIO UML](https://user-images.githubusercontent.com/61842142/168413410-21214e15-d79a-4c51-ae73-0142f0921d07.jpeg)
 
 ## 🔥 Screenshots
 
