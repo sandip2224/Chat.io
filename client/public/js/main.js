@@ -8,6 +8,8 @@ const room = document.getElementById('room-name').innerHTML
 
 const socket = io()
 
+const baseUrl = 'https://chatio64.vercel.app/'
+
 // Join chatroom
 socket.emit('joinRoom', { username, room })
 
