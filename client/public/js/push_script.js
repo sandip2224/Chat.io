@@ -3,8 +3,8 @@ const VAPID_PUBLIC = 'BO_DeYGvxJZ8SfL16UDMlW2XSzXLRldLOjv11Cv1BhDyAiMBoTKZ3uMS6j
 const uname = document.getElementById('user-name').innerHTML
 const rname = document.getElementById('room-name').innerHTML
 
-// const baseUrl = 'https://web-chat64.herokuapp.com'
-const baseUrl = 'http://localhost:3000'
+const baseUrl = 'https://web-chat64.herokuapp.com'
+// const baseUrl = 'http://localhost:3000'
 
 let registration;
 
