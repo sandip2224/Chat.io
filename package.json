@@ -3,6 +3,9 @@
   "version": "2.0.0",
   "description": "Real-time chat application with persistent chat history functionality",
   "main": "server.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "start": "node server/server",
     "dev": "nodemon server/server"
