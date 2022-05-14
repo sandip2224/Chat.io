@@ -9,7 +9,9 @@ require("dotenv").config({ path: "./.env" })
 const formatMessage = require('../client/utils/messages')
 const { userJoin, getCurrentUser, userLeave, getRoomUsers } = require('../client/utils/users')
 const connectDB = require('./config/db')
+
 const chatModel = require('./models/Chat')
+const subModel = require('./models/Subscription')
 
 const app = express()
 const server = http.createServer(app)
@@ -35,56 +37,62 @@ app.use(express.json())
 app.use(express.static(path.join(__dirname, '../client/public')))
 app.use('/', require('./routes/chatRoute'))
 
-const userExists = (reqBodyItems) => {
-	return subscriptions.some(item =>
-		item.subscription.endpoint === reqBodyItems.subscription.endpoint && item.name === reqBodyItems.name && item.room === reqBodyItems.room
-	)
-}
-
-const filteredUsers = (reqBodyItems) => {
-	return subscriptions.filter(item => {
-		return !(item.subscription.endpoint === reqBodyItems.subscription.endpoint && item.name === reqBodyItems.name && item.room === reqBodyItems.room)
-	})
-}
-
-const exitFilteredUsers = (user) => {
-	return subscriptions.filter(item => {
-		return !(item.name === user.username && item.room === user.room)
-	})
-}
-
 // Push notification endpoints BEGIN
 
-app.post('/register-push-device', (req, res) => {
-	var flag = userExists(req.body)
+app.post('/register-push-device', async (req, res) => {
+	const { subscription, name, room } = req.body
+	const flag = await subModel.exists({ endpoint: subscription.endpoint, key_p256dh: subscription.keys.p256dh, key_auth: subscription.keys.auth, name: name, room: room })
+	console.log(flag)
 	if (!flag) {
-		subscriptions.push({
-			subscription: req.body.subscription,
-			name: req.body.name,
-			room: req.body.room
-		})
+		const subObj = {
+			endpoint: subscription.endpoint,
+			key_p256dh: subscription.keys.p256dh,
+			key_auth: subscription.keys.auth,
+			name: name,
+			room: room
+		}
+		const newSub = new subModel(subObj)
+		await newSub.save()
+		console.log(`Successfully subscribed ${name} to room ${room} notifications`)
 	}
-	console.log(subscriptions)
-	console.log("Subscriptions list length: ", subscriptions.length)
+	else {
+		console.log('User is already registered!!')
+	}
 	res.end()
 })
 
-app.delete('/deregister-push-device', (req, res) => {
+app.delete('/deregister-push-device', async (req, res) => {
 	console.log('Unregistering user subscription...')
-	subscriptions = filteredUsers(req.body)
-	console.log("Modified subscriptions list length: ", subscriptions.length)
-	res.end()
+
+	const { subscription, name, room } = req.body
+
+	await subModel.findOneAndDelete({ endpoint: subscription.endpoint, key_p256dh: subscription.keys.p256dh, key_auth: subscription.keys.auth, name: name, room: room })
+
+	console.log(`Successfully unsubscribed ${name} from room ${room} notifications!!`)
 })
 
-app.post('/send-notification', (req, res) => {
+app.post('/send-notification', async (req, res) => {
+	const { msg, username } = req.body
 	const notifBody = {
-		msg: req.body.msg.text,
-		user: req.body.msg.username
+		msg: msg.text,
+		user: msg.username
 	}
+
 	console.log('Sending notification: ', notifBody)
+	const subscriptions = await subModel.find()
 	subscriptions.forEach((item) => {
-		if (item.room === req.body.msg.room && item.name === req.body.username) {
-			webpush.sendNotification(item.subscription, JSON.stringify(notifBody)).catch(error => {
+
+		const itemSubscription = {
+			"endpoint": `${item.endpoint}`,
+			"expirationTime": null,
+			"keys": {
+				"p256dh": `${item.key_p256dh}`,
+				"auth": `${item.key_auth}`
+			}
+		}
+
+		if (item.room === msg.room && item.name === username) {
+			webpush.sendNotification(itemSubscription, JSON.stringify(notifBody)).catch(error => {
 				console.error(error)
 			})
 		}
@@ -140,12 +148,19 @@ io.on('connection', (socket) => {
 	})
 
 	// Run when client disconnects
-	socket.on('disconnect', () => {
+	socket.on('disconnect', async () => {
 		const user = userLeave(socket.id)
 		if (user) {
-			subscriptions = exitFilteredUsers(user)
+			console.log('Unregistering user subscription...')
+
+			const { username, room } = user
+
+			await subModel.findOneAndDelete({ name: username, room: room })
+
+
 			console.log(`Successfully unsubscribed ${user.username} from room ${user.room} notifications`)
 			io.to(user.room).emit('message', formatMessage('Admin', `${user.username} has left the chat`))
+
 			// Send users and room info to every client
 			io.to(user.room).emit('roomUsers', {
 				room: user.room,
