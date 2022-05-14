@@ -16,7 +16,7 @@ const server = http.createServer(app)
 const io = socketio(server)
 
 const vapidKeys = {
-	publicKey: process.env.PUBLIC_KEY,
+	publicKey: 'BO_DeYGvxJZ8SfL16UDMlW2XSzXLRldLOjv11Cv1BhDyAiMBoTKZ3uMS6jcuj52z4X5C53BIxQN1dcjy4cVRxHY',
 	privateKey: process.env.PRIVATE_KEY
 }
 
@@ -46,6 +46,8 @@ const filteredUsers = (reqBodyItems) => {
 		return !(item.subscription.endpoint === reqBodyItems.subscription.endpoint && item.name === reqBodyItems.name && item.room === reqBodyItems.room)
 	})
 }
+
+// Push notification endpoints BEGIN
 
 app.post('/register-push-device', (req, res) => {
 	console.log('Registering user subscription...')
@@ -84,6 +86,8 @@ app.post('/send-notification', (req, res) => {
 	})
 	res.end()
 })
+
+// Push notification endpoints END
 
 // Run when client connects
 io.on('connection', (socket) => {

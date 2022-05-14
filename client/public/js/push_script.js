@@ -13,6 +13,7 @@ const subscribe = async () => {
 			userVisibleOnly: true,
 			applicationServerKey: VAPID_PUBLIC
 		})
+
 		// Sending subscription object to server
 		fetch('http://localhost:3000/register-push-device', {
 			method: 'POST',
@@ -48,7 +49,7 @@ const unsubscribe = async () => {
 			})
 		}
 		else {
-			console.log('OOPS')
+			console.log('User is not subscribed')
 		}
 	}
 	catch (err) {
@@ -60,7 +61,7 @@ if ('serviceWorker' in navigator) {
 	window.addEventListener('load', async () => {
 		try {
 			registration = await navigator.serviceWorker.register('/js/worker.js')
-			console.log('Service worker registered successfully');
+			console.log('Service worker registered successfully!!');
 		}
 		catch (err) {
 			console.error('Error during service worker registration:', err);
