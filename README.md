@@ -7,10 +7,6 @@
 
 <!-- ABOUT THE PROJECT -->
 
-## 🎉Live Status
-
-The website is live. Check it out [here](https://chatio64.herokuapp.com)
-
 ## Built With
 
 - Frontend
