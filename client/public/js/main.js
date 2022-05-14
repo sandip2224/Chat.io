@@ -26,15 +26,12 @@ chatForm.addEventListener('submit', (e) => {
 //  Receiving message from server
 socket.on('message', (msg) => {
 	displayMessage(msg)
+
 	if (msg.username !== 'Admin' && msg.username !== username) {
-		fetch(`https://web-chat64.herokuapp.com/send-notification`, {
+		fetch(`${baseUrl}/send-notification`, {
 			method: 'POST',
-			headers: {
-				'Content-type': 'application/json'
-			},
-			body: [
-				JSON.stringify({ msg, username })
-			]
+			headers: { 'Content-type': 'application/json' },
+			body: [JSON.stringify({ msg, username })]
 		})
 	}
 	chatDiv.scrollTop = chatDiv.scrollHeight;
@@ -65,5 +62,5 @@ function onkeyFn() {
 	socket.emit('starttype', `${username} is typing...`)
 	setTimeout(() => {
 		socket.emit('stoptype', "")
-	}, 2000)
+	}, 3000)
 }

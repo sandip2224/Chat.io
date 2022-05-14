@@ -1,7 +1,7 @@
 const express = require('express')
 const path = require('path')
 const http = require('http')
-const colors = require("colors")
+const colors = require('colors')
 const socketio = require('socket.io')
 const webpush = require('web-push')
 require("dotenv").config({ path: "./.env" })
@@ -22,8 +22,6 @@ const vapidKeys = {
 	privateKey: process.env.PRIVATE_KEY
 }
 
-let subscriptions = []
-
 webpush.setVapidDetails('mailto:test@test.com', vapidKeys.publicKey, vapidKeys.privateKey)
 
 connectDB()
@@ -40,9 +38,10 @@ app.use('/', require('./routes/chatRoute'))
 // Push notification endpoints BEGIN
 
 app.post('/register-push-device', async (req, res) => {
+	console.log('Registering user subscription...')
+
 	const { subscription, name, room } = req.body
 	const flag = await subModel.exists({ endpoint: subscription.endpoint, key_p256dh: subscription.keys.p256dh, key_auth: subscription.keys.auth, name: name, room: room })
-	console.log(flag)
 	if (!flag) {
 		const subObj = {
 			endpoint: subscription.endpoint,
@@ -53,10 +52,10 @@ app.post('/register-push-device', async (req, res) => {
 		}
 		const newSub = new subModel(subObj)
 		await newSub.save()
-		console.log(`Successfully subscribed ${name} to room ${room} notifications`)
+		console.log(`[SUCCESS] Subscribed ${name} to room ${room} notifications!`)
 	}
 	else {
-		console.log('User is already registered!!')
+		console.log(`${name} is already registered to room ${room} notifications!!`)
 	}
 	res.end()
 })
@@ -65,10 +64,9 @@ app.delete('/deregister-push-device', async (req, res) => {
 	console.log('Unregistering user subscription...')
 
 	const { subscription, name, room } = req.body
-
 	await subModel.findOneAndDelete({ endpoint: subscription.endpoint, key_p256dh: subscription.keys.p256dh, key_auth: subscription.keys.auth, name: name, room: room })
 
-	console.log(`Successfully unsubscribed ${name} from room ${room} notifications!!`)
+	console.log(`[SUCCESS] Unsubscribed ${name} from room ${room} notifications!`)
 })
 
 app.post('/send-notification', async (req, res) => {
@@ -78,9 +76,9 @@ app.post('/send-notification', async (req, res) => {
 		user: msg.username
 	}
 
-	console.log('Sending notification: ', notifBody)
+	console.log('[SUCCESS] Sending notification: ', notifBody)
 	const subscriptions = await subModel.find()
-	subscriptions.forEach((item) => {
+	subscriptions.forEach(item => {
 
 		const itemSubscription = {
 			"endpoint": `${item.endpoint}`,
@@ -92,9 +90,7 @@ app.post('/send-notification', async (req, res) => {
 		}
 
 		if (item.room === msg.room && item.name === username) {
-			webpush.sendNotification(itemSubscription, JSON.stringify(notifBody)).catch(error => {
-				console.error(error)
-			})
+			webpush.sendNotification(itemSubscription, JSON.stringify(notifBody)).catch(error => console.error(error))
 		}
 	})
 	res.end()
@@ -156,7 +152,6 @@ io.on('connection', (socket) => {
 			const { username, room } = user
 
 			await subModel.findOneAndDelete({ name: username, room: room })
-
 
 			console.log(`Successfully unsubscribed ${user.username} from room ${user.room} notifications`)
 			io.to(user.room).emit('message', formatMessage('Admin', `${user.username} has left the chat`))
