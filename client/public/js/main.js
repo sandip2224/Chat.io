@@ -8,8 +8,6 @@ const room = document.getElementById('room-name').innerHTML
 
 const socket = io()
 
-const baseUrl = 'https://web-chat64.herokuapp.com'
-
 // Join chatroom
 socket.emit('joinRoom', { username, room })
 
@@ -29,7 +27,7 @@ chatForm.addEventListener('submit', (e) => {
 socket.on('message', (msg) => {
 	displayMessage(msg)
 	if (msg.username !== 'Admin' && msg.username !== username) {
-		fetch(`${baseUrl}/send-notification`, {
+		fetch(`https://web-chat64.herokuapp.com/send-notification`, {
 			method: 'POST',
 			headers: {
 				'Content-type': 'application/json'
