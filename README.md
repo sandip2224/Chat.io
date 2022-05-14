@@ -13,10 +13,8 @@
    - EJS Templates
    - CSS
 - Backend
-   - Node.js
-   - Express.js
+   - Node.js + Express
 - Libraries
-   - Mongoose
    - Socket.io
 - Database
    - MongoDB Atlas
