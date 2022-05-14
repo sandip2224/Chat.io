@@ -8,7 +8,7 @@ const room = document.getElementById('room-name').innerHTML
 
 const socket = io()
 
-const baseUrl = 'https://chatio64.vercel.app/'
+const baseUrl = 'https://web-chat64.herokuapp.com/'
 
 // Join chatroom
 socket.emit('joinRoom', { username, room })
