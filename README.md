@@ -74,20 +74,14 @@
   ```
   npm run dev
   ```
-  
----
-
-## Contributing
-
-If you'd like to contribute, please **fork** the repository and then raise a PR with necessary changes. Thank you.
 
 ---
 
 ## 🤎 Found this project interesting?
 
-If you found this project useful, then please leave a :star: on Github💔.
+If you found this project useful, please leave a :star: on Github💔.
 
 ---
 
-## :man: Project Maintained By-
+## ✨ Project Maintained By-
   - [Sandipan Das](https://linkedin.com/in/sandipan0164/)

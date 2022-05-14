@@ -1,25 +1,25 @@
 {
-  "name": "chatio",
-  "version": "2.0.0",
-  "description": "Real-time chat application with persistent chat history functionality",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server/server",
-    "dev": "nodemon server/server"
-  },
-  "author": "Sandipan Das",
-  "license": "ISC",
-  "dependencies": {
-    "colors": "^1.4.0",
-    "dotenv": "^10.0.0",
-    "ejs": "^3.1.7",
-    "express": "^4.17.1",
-    "moment-timezone": "^0.5.33",
-    "mongoose": "^6.0.13",
-    "socket.io": "^4.2.0",
-    "web-push": "^3.5.0"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.12"
-  }
+	"name": "chatio",
+	"version": "2.0.0",
+	"description": "Real-time chat application with persistent chat history functionality",
+	"main": "server.js",
+	"scripts": {
+		"start": "node server/server",
+		"dev": "nodemon server/server"
+	},
+	"author": "Sandipan Das",
+	"license": "ISC",
+	"dependencies": {
+		"colors": "^1.4.0",
+		"dotenv": "^10.0.0",
+		"ejs": "^3.1.7",
+		"express": "^4.17.1",
+		"moment-timezone": "^0.5.33",
+		"mongoose": "^6.0.13",
+		"socket.io": "^4.2.0",
+		"web-push": "^3.5.0"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.12"
+	}
 }
