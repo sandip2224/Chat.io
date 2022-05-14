@@ -47,11 +47,15 @@ const filteredUsers = (reqBodyItems) => {
 	})
 }
 
+const exitFilteredUsers = (user) => {
+	return subscriptions.filter(item => {
+		return !(item.name === user.username && item.room === user.room)
+	})
+}
+
 // Push notification endpoints BEGIN
 
 app.post('/register-push-device', (req, res) => {
-	console.log('Registering user subscription...')
-
 	var flag = userExists(req.body)
 	if (!flag) {
 		subscriptions.push({
@@ -60,6 +64,7 @@ app.post('/register-push-device', (req, res) => {
 			room: req.body.room
 		})
 	}
+	console.log(subscriptions)
 	console.log("Subscriptions list length: ", subscriptions.length)
 	res.end()
 })
@@ -138,6 +143,8 @@ io.on('connection', (socket) => {
 	socket.on('disconnect', () => {
 		const user = userLeave(socket.id)
 		if (user) {
+			subscriptions = exitFilteredUsers(user)
+			console.log(`Successfully unsubscribed ${user.username} from room ${user.room} notifications`)
 			io.to(user.room).emit('message', formatMessage('Admin', `${user.username} has left the chat`))
 			// Send users and room info to every client
 			io.to(user.room).emit('roomUsers', {

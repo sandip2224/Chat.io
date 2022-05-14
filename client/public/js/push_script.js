@@ -6,13 +6,14 @@ const rname = document.getElementById('room-name').innerHTML
 let registration;
 
 const subscribe = async () => {
-	console.log('Inside subscriber')
 	try {
 		await registration.pushManager.getSubscription()
 		const subscription = await registration.pushManager.subscribe({
 			userVisibleOnly: true,
 			applicationServerKey: VAPID_PUBLIC
 		})
+
+		console.log(`Successfully subscribed ${uname} to room ${rname} notifications`)
 
 		// Sending subscription object to server
 		fetch('http://localhost:3000/register-push-device', {
@@ -31,13 +32,12 @@ const subscribe = async () => {
 }
 
 const unsubscribe = async () => {
-	console.log('Inside unsubscriber')
 	try {
 		await navigator.serviceWorker.getRegistration()
 		const subscription = await registration.pushManager.getSubscription()
 		if (subscription) {
 			await subscription.unsubscribe()
-			console.log('Successfully unsubscribed')
+			console.log(`Successfully unsubscribed ${uname} from room ${rname} notifications`)
 			fetch('http://localhost:3000/deregister-push-device', {
 				method: 'DELETE',
 				headers: {
