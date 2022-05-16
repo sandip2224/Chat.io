@@ -1,25 +1,27 @@
 {
 	"name": "chatio",
-	"version": "2.0.0",
-	"description": "Real-time chat application with persistent chat history functionality",
+	"version": "1.0.0",
+	"description": "Real-time chat application with persistent chat history and push notification support on NoSQL backend",
 	"main": "server.js",
 	"scripts": {
 		"start": "node server/server",
 		"dev": "nodemon server/server"
 	},
-	"author": "Sandipan Das",
-	"license": "ISC",
+	"repository": "https://github.com/sandip2224/ChatIO.git",
+	"author": "sandip2224 <sandipan2224@gmail.com>",
+	"license": "MIT",
 	"dependencies": {
 		"colors": "^1.4.0",
-		"dotenv": "^10.0.0",
-		"ejs": "^3.1.7",
-		"express": "^4.17.1",
-		"moment-timezone": "^0.5.33",
-		"mongoose": "^6.0.13",
-		"socket.io": "^4.2.0",
+		"dotenv": "^16.0.1",
+		"ejs": "^3.1.8",
+		"express": "^4.18.1",
+		"moment-timezone": "^0.5.34",
+		"mongoose": "^6.3.3",
+		"redis": "^4.1.0",
+		"socket.io": "^4.5.0",
 		"web-push": "^3.5.0"
 	},
 	"devDependencies": {
-		"nodemon": "^2.0.12"
+		"nodemon": "^2.0.16"
 	}
 }
