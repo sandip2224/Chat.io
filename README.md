@@ -22,9 +22,10 @@
 
 # 📈 UML Diagram
 
-![ChatIO UML](https://user-images.githubusercontent.com/61842142/168413410-21214e15-d79a-4c51-ae73-0142f0921d07.jpeg)
+![ChatIO UML](https://user-images.githubusercontent.com/61842142/168617573-a0cbdbd9-804c-4108-ba86-4a9136d56416.png)
 
-## 🔥 Screenshots
+
+<!-- ## 🔥 Screenshots
 
 | Landing Page |
 | - |
@@ -32,7 +33,7 @@
 
 | Chat Page |
 | - |
-| ![client/media/2.PNG](client/media/2.PNG) |
+| ![client/media/2.PNG](client/media/2.PNG) | -->
 
 ## 🚩New Updates
 
