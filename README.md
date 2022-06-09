@@ -49,7 +49,6 @@
 - Added persistent chat storage in MongoDB Atlas
 - Added push notification support on local environment
 
-
 <!-- BUILT WITH -->  
 
 ## How to Install Locally
@@ -76,6 +75,7 @@
   MONGO_URI=<Unique MongoDB Cluster URL>
   PUBLIC_KEY=<Public VAPID Key>
   PRIVATE_KEY=<Private VAPID Key>
+  BASE_URL=<App Server URL> (Either http://localhost:3000 or deployment origin)
   ```
 
 **4. Run server in development mode at `localhost:3000` using**  
