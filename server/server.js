@@ -1,5 +1,6 @@
 const express = require('express')
 const path = require('path')
+const axios = require('axios').default
 const http = require('http')
 const colors = require('colors')
 const socketio = require('socket.io')
@@ -35,6 +36,8 @@ app.use(express.json())
 app.use(express.static(path.join(__dirname, '../client/public')))
 app.use('/', require('./routes/chatRoute'))
 
+const baseUrl = process.env.BASE_URL
+
 // Push notification endpoints BEGIN
 
 app.post('/register-push-device', async (req, res) => {
@@ -57,26 +60,26 @@ app.post('/register-push-device', async (req, res) => {
 	else {
 		console.log(`${name} is already registered to room ${room} notifications!!`)
 	}
-	res.end()
 })
 
 app.delete('/deregister-push-device', async (req, res) => {
 	console.log('Unregistering user subscription...')
 
 	const { subscription, name, room } = req.body
-	await subModel.findOneAndDelete({ endpoint: subscription.endpoint, key_p256dh: subscription.keys.p256dh, key_auth: subscription.keys.auth, name: name, room: room })
+	await subModel.findOneAndDelete({ endpoint: subscription.endpoint, key_p256dh: subscription.keys.p256dh, key_auth: subscription.keys.auth, name, room })
 
 	console.log(`[SUCCESS] Unsubscribed ${name} from room ${room} notifications!`)
 })
 
 app.post('/send-notification', async (req, res) => {
-	const { msg, username } = req.body
+	// msg is the object that stores sender information {username,text,time,date,room}
+	// username is the name of user who received the message from sender
+	const { msg } = req.body
 	const notifBody = {
 		msg: msg.text,
 		user: msg.username
 	}
 
-	console.log('[SUCCESS] Sending notification: ', notifBody)
 	const subscriptions = await subModel.find()
 	subscriptions.forEach(item => {
 
@@ -89,11 +92,12 @@ app.post('/send-notification', async (req, res) => {
 			}
 		}
 
-		if (item.room === msg.room && item.name === username) {
-			webpush.sendNotification(itemSubscription, JSON.stringify(notifBody)).catch(error => console.error(error))
+		if (item.room === msg.room && item.name !== msg.username && item.name !== 'Admin') {
+			console.log('[SUCCESS] Sending notification: ', notifBody)
+			webpush.sendNotification(itemSubscription, JSON.stringify(notifBody))
+				.catch(error => console.error(error))
 		}
 	})
-	res.end()
 })
 
 // Push notification endpoints END
@@ -141,6 +145,9 @@ io.on('connection', (socket) => {
 		const newMsg = new chatModel(obj)
 		await newMsg.save()
 		io.to(user.room).emit('message', frmtMsg)
+		axios.post(`${baseUrl}/send-notification`, {
+			msg: frmtMsg
+		})
 	})
 
 	// Run when client disconnects
@@ -165,8 +172,10 @@ io.on('connection', (socket) => {
 	})
 })
 
-const conn = server.listen(process.env.PORT || 3000, console.log(`Server running on port ${process.env.PORT || 3000}`))
-
+const conn = server.listen(process.env.PORT || 3000, () => {
+	if (process.env.NODE_ENV === 'production') console.log(`🚀 @ ${process.env.BASE_URL}`.green.bold)
+	else console.log(`🚀 @ ${process.env.BASE_URL}`.green.bold)
+})
 // Handle unhandled promise rejections
 process.on("unhandledRejection", (err, promise) => {
 	console.log(`Error: ${err.message}`.red)

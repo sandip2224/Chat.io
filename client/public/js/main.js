@@ -24,16 +24,17 @@ chatForm.addEventListener('submit', (e) => {
 })
 
 //  Receiving message from server
+// msg is the object that stores sender information {username,text,time,date,room}
 socket.on('message', (msg) => {
 	displayMessage(msg)
 
-	if (msg.username !== 'Admin' && msg.username !== username) {
-		fetch(`${baseUrl}/send-notification`, {
-			method: 'POST',
-			headers: { 'Content-type': 'application/json' },
-			body: [JSON.stringify({ msg, username })]
-		})
-	}
+	// if (msg.username !== 'Admin' && msg.username !== username) {
+	// 	fetch(`${baseUrl}/send-notification`, {
+	// 		method: 'POST',
+	// 		headers: { 'Content-type': 'application/json' },
+	// 		body: [JSON.stringify({ msg, username })]
+	// 	})
+	// }
 	chatDiv.scrollTop = chatDiv.scrollHeight;
 })
 
