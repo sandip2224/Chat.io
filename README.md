@@ -22,7 +22,15 @@
 
 # 📈 UML Diagram
 
-![ChatIO UML](https://user-images.githubusercontent.com/61842142/168617573-a0cbdbd9-804c-4108-ba86-4a9136d56416.png)
+<details>
+   <summary>Unoptimized Architecture (old)</summary>
+   <img src="https://user-images.githubusercontent.com/61842142/168617573-a0cbdbd9-804c-4108-ba86-4a9136d56416.png"/ alt="Previous UML Architecture">
+</details>
+
+<details>
+   <summary>Optimized Architecture (revamped)</summary>
+   <img src="https://user-images.githubusercontent.com/61842142/172811785-3ed66bf7-0635-42f5-87a5-d58ff641bb0d.png"/ alt="Revamped UML Diagram">
+</details>
 
 
 <!-- ## 🔥 Screenshots
