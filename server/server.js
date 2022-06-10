@@ -7,10 +7,12 @@ const socketio = require('socket.io')
 const webpush = require('web-push')
 require("dotenv").config({ path: "./.env" })
 
+// Utility functions
 const formatMessage = require('../client/utils/messages')
 const { userJoin, getCurrentUser, userLeave, getRoomUsers } = require('../client/utils/users')
 const connectDB = require('./config/db')
 
+// Database Models
 const chatModel = require('./models/Chat')
 const subModel = require('./models/Subscription')
 
@@ -35,72 +37,9 @@ app.use(express.json())
 
 app.use(express.static(path.join(__dirname, '../client/public')))
 app.use('/', require('./routes/chatRoute'))
+app.use('/', require('./routes/notifRoute'))
 
 const baseUrl = process.env.BASE_URL
-
-// Push notification endpoints BEGIN
-
-app.post('/register-push-device', async (req, res) => {
-	console.log('Registering user subscription...')
-
-	const { subscription, name, room } = req.body
-	const flag = await subModel.exists({ endpoint: subscription.endpoint, key_p256dh: subscription.keys.p256dh, key_auth: subscription.keys.auth, name: name, room: room })
-	if (!flag) {
-		const subObj = {
-			endpoint: subscription.endpoint,
-			key_p256dh: subscription.keys.p256dh,
-			key_auth: subscription.keys.auth,
-			name: name,
-			room: room
-		}
-		const newSub = new subModel(subObj)
-		await newSub.save()
-		console.log(`[SUCCESS] Subscribed ${name} to room ${room} notifications!`)
-	}
-	else {
-		console.log(`${name} is already registered to room ${room} notifications!!`)
-	}
-})
-
-app.delete('/deregister-push-device', async (req, res) => {
-	console.log('Unregistering user subscription...')
-
-	const { subscription, name, room } = req.body
-	await subModel.findOneAndDelete({ endpoint: subscription.endpoint, key_p256dh: subscription.keys.p256dh, key_auth: subscription.keys.auth, name, room })
-
-	console.log(`[SUCCESS] Unsubscribed ${name} from room ${room} notifications!`)
-})
-
-app.post('/send-notification', async (req, res) => {
-	// msg is the object that stores sender information {username,text,time,date,room}
-	// username is the name of user who received the message from sender
-	const { msg } = req.body
-	const notifBody = {
-		msg: msg.text,
-		user: msg.username
-	}
-
-	const subscriptions = await subModel.find()
-	subscriptions.forEach(item => {
-
-		const itemSubscription = {
-			"endpoint": `${item.endpoint}`,
-			"expirationTime": null,
-			"keys": {
-				"p256dh": `${item.key_p256dh}`,
-				"auth": `${item.key_auth}`
-			}
-		}
-
-		if (item.room === msg.room && item.name !== msg.username && item.name !== 'Admin') {
-			console.log('[SUCCESS] Sending notification: ', notifBody)
-			webpush.sendNotification(itemSubscription, JSON.stringify(notifBody))
-				.catch(error => console.error(error))
-		}
-	})
-})
-
-// Push notification endpoints END
 
 // Run when client connects
 io.on('connection', (socket) => {
@@ -172,10 +111,7 @@ io.on('connection', (socket) => {
 	})
 })
 
-const conn = server.listen(process.env.PORT || 3000, () => {
-	if (process.env.NODE_ENV === 'production') console.log(`🚀 @ ${process.env.BASE_URL}`.green.bold)
-	else console.log(`🚀 @ ${process.env.BASE_URL}`.green.bold)
-})
+const conn = server.listen(process.env.PORT || 3000, console.log(`🚀 Server running in ${process.env.NODE_ENV} mode at: ${process.env.BASE_URL}`.green.bold))
 // Handle unhandled promise rejections
 process.on("unhandledRejection", (err, promise) => {
 	console.log(`Error: ${err.message}`.red)
