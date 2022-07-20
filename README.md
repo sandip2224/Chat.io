@@ -9,15 +9,10 @@
 
 ## Built With
 
-- Frontend
-   - EJS Templates
-   - CSS
-- Backend
-   - Node.js + Express
-- Libraries
-   - Socket.io
-- Database
-   - MongoDB Atlas
+- Frontend: EJS Templating Engine, CSS, Vanilla JavaScript
+- Backend: Node.js, Express.js
+- Libraries: Socket.io, Mongoose
+- Database: MongoDB Atlas
 ---
 
 # 📈 UML Diagram
