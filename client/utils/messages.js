@@ -1,6 +1,6 @@
 const moment = require('moment-timezone')
 
-function formatMessage(username, text, room) {
+const formatMessage = (username, text, room) => {
 	let date = new Date()
 	var y = date.toLocaleString('en-US', { month: '2-digit' })
 	var x = date.toLocaleString('en-US', { day: '2-digit' })

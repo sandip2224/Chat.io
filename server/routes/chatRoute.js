@@ -14,7 +14,7 @@ router.post('/chat', async (req, res) => {
 })
 
 router.get('/chat', (req, res) => {
-    console.log('You are not authorized to access the endpoint. Please enter all details first!!')
+    console.log('[403] You are not authorized to access the endpoint. Please enter valid credentials!!')
     res.redirect('/')
 })
 

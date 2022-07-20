@@ -48,7 +48,8 @@ const unsubscribe = async () => {
 			console.log(`[SUCCESS] Unsubscribed ${uname} from room ${rname} notifications!`)
 		}
 		else {
-			console.log(`${uname} is not subscribed to room ${room} notifications`)
+			alert(`OOPS! ${uname} is not subscribed to room ${room} notifications!`)
+			console.log(`OOPS! ${uname} is not subscribed to room ${room} notifications!`)
 		}
 	}
 	catch (err) {
@@ -68,5 +69,5 @@ if ('serviceWorker' in navigator) {
 	})
 }
 else {
-	console.log('Notification not supported by this browser!!')
+	console.log('[ERROR] Notification not supported by this browser!!')
 }

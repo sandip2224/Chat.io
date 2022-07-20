@@ -44,13 +44,14 @@ const baseUrl = process.env.BASE_URL
 // Run when client connects
 io.on('connection', (socket) => {
 	socket.on('joinRoom', ({ username, room }) => {
+		// Generate a new user object with the supplied user details { id, username, room }
 		const user = userJoin(socket.id, username, room)
 
 		// Pushes a user socket to the given room
 		socket.join(user.room)
 
 		// Welcome adminMessage for client alone who connects
-		socket.emit('message', formatMessage('Admin', `Welcome to ChatIO ${user.username}!!`))
+		socket.emit('message', formatMessage('Admin', `Welcome to Chat.io ${user.username}!!`))
 
 		// Broadcast to everyone else when user connects
 		socket.broadcast.to(user.room).emit('message', formatMessage('Admin', `${user.username} has joined the chat!!`))

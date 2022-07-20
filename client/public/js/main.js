@@ -23,18 +23,10 @@ chatForm.addEventListener('submit', (e) => {
 	msg.focus()
 })
 
-//  Receiving message from server
+// Receiving message from server
 // msg is the object that stores sender information {username,text,time,date,room}
 socket.on('message', (msg) => {
 	displayMessage(msg)
-
-	// if (msg.username !== 'Admin' && msg.username !== username) {
-	// 	fetch(`${baseUrl}/send-notification`, {
-	// 		method: 'POST',
-	// 		headers: { 'Content-type': 'application/json' },
-	// 		body: [JSON.stringify({ msg, username })]
-	// 	})
-	// }
 	chatDiv.scrollTop = chatDiv.scrollHeight;
 })
 
@@ -42,7 +34,7 @@ socket.on('type', (res) => {
 	document.getElementById('typing').innerHTML = res
 })
 
-function displayMessage(msg) {
+const displayMessage = (msg) => {
 	const div = document.createElement('div');
 	div.classList.add('message')
 	div.innerHTML = `
@@ -52,14 +44,14 @@ function displayMessage(msg) {
 	chatDiv.appendChild(div)
 }
 
-function outputRoomUsers(room, users) {
+const outputRoomUsers = (room, users) => {
 	document.getElementById('room-name').innerText = room;
 	usersList.innerHTML = `
         ${users.map(user => `<li>${user.username}</li>`).join('')}
         `;
 }
 
-function onkeyFn() {
+const onkeyFn = () => {
 	socket.emit('starttype', `${username} is typing...`)
 	setTimeout(() => {
 		socket.emit('stoptype', "")
