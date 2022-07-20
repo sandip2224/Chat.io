@@ -73,18 +73,12 @@
   BASE_URL=<App Server URL> (Either http://localhost:3000 or deployment origin)
   ```
 
-**4. Run server in development mode at `localhost:3000` using**  
+**4. Run server at `localhost:3000` using**  
 
   ```
-  npm run dev
+  yarn run start:dev (in development mode)
+  yarn run start:prod (in production mode)
   ```
-
----
-
-## 🤎 Found this project interesting?
-
-If you found this project useful, please leave a :star: on Github💔.
-
 ---
 
 ## ✨ Project Maintained By-
