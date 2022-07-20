@@ -21,7 +21,7 @@ const server = http.createServer(app)
 const io = socketio(server)
 
 const vapidKeys = {
-	publicKey: 'BO_DeYGvxJZ8SfL16UDMlW2XSzXLRldLOjv11Cv1BhDyAiMBoTKZ3uMS6jcuj52z4X5C53BIxQN1dcjy4cVRxHY',
+	publicKey: process.env.PUBLIC_KEY,
 	privateKey: process.env.PRIVATE_KEY
 }
 
