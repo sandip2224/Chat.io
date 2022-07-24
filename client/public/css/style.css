@@ -95,7 +95,7 @@ a {
 	background: var(--dark-color-b);
 	color: #fff;
 	padding: 20px 20px 60px;
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 
 .chat-sidebar h2 {
