@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
-        integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+        integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" /> -->
     <link rel="stylesheet" href="css/style.css" />
+    <script src="https://kit.fontawesome.com/0a7cb7270a.js" crossorigin="anonymous"></script>
 
     <link rel="icon" type="image/x-icon" href="assets/chat.png">
     <title>Chat.io</title>
@@ -18,7 +19,7 @@
             <h1><i class="fas fa-solid fa-comments"></i> Chat.io</h1>
             <p id="typing"></p>
             <p id="user-name"></p>
-            <a href="/" class="btn"><i class="fa-solid fa-right-from-bracket"></i> Leave Room</a>
+            <a href="/" class="btn"><i class="fa fa-solid fa-right-from-bracket"></i> Leave</a>
         </header>
         <main class="chat-main">
             <div class="chat-sidebar">
@@ -46,14 +47,14 @@
         </main>
         <div class="chat-form-container">
             <form id="chat-form">
-                <input id="msg" type="text" placeholder=" Enter message..." autocomplete="off"
-                    onkeypress="onkeyFn()" required />
-                <span>&nbsp;&nbsp;</span>
-                <button class="btn"><i class="fas fa-paper-plane"></i> Send</button>
-                <span>&nbsp;&nbsp;</span>
-                <button class="btn btn1" onclick="subscribe()"><i class="fas fa-solid fa-bell"></i> Subscribe</button>
-                <span>&nbsp;&nbsp;</span>
-                <button class="btn btn2" onclick="unsubscribe()"><i class="fas fa-solid fa-bell-slash"></i> Unsubscribe</button>
+                <div class="d1">
+                    <input id="msg" type="text" placeholder=" Enter message..." autocomplete="off" onkeypress="onkeyFn()" required />
+                </div>
+                <div class="d2">
+                    <button class="btn tooltip"><i class="fas fa-paper-plane"></i><span class="tooltiptext">Send message</span></button>
+                    <button class="btn btn1 tooltip" onclick="subscribe()"><i class="fas fa-solid fa-bell"></i><span class="tooltiptext">Subscribe to room notifications</span></button>
+                    <button class="btn btn2 tooltip" onclick="unsubscribe()"><i class="fas fa-solid fa-bell-slash"></i><span class="tooltiptext">Unsubscribe from room notifications</span></button>
+                </div>
             </form>
         </div>
     </div>

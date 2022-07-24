@@ -74,6 +74,10 @@ a {
 	justify-content: space-between;
 }
 
+.chat-header h1{
+	font-size: 1.6em;
+}
+
 .chat-header p {
 	color: white;
 	/* background-color: white; */
@@ -84,6 +88,7 @@ a {
 .chat-main {
 	display: grid;
 	grid-template-columns: 1fr 3fr;
+    /* height: 55vh; */
 }
 
 .chat-sidebar {
@@ -146,13 +151,31 @@ a {
 
 .chat-form-container form {
 	display: flex;
+    justify-content: space-between;
+}
+
+.d1 {
+    flex: 85%;
+    margin: 4px;
+}
+.d2 {
+    flex: 15%;
+    margin: 4px;
+    display: flex;
+    justify-content: space-around;
+}
+.d2 button {
+    margin: 0 3px;
+}
+.d2 :first-child{
+    margin-left: 0;
 }
 
 .chat-form-container input[type="text"] {
 	font-size: 16px;
 	padding: 5px;
 	height: 40px;
-	flex: 1;
+	width: 100%;
 }
 
 .btn {
@@ -241,6 +264,41 @@ select {
 	border: none;
 }
 
+	
+/* Tooltip CSS */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 4px 3px;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -60px;
+}
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 40%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
 @media (max-width: 700px) {
 	.chat-main {
 		display: block;
@@ -249,4 +307,18 @@ select {
 	.chat-sidebar {
 		display: none;
 	}
+}
+
+	
+@media (max-width: 450px) {
+    .chat-form-container form{
+        flex-direction: column;
+    }
+    .d1{
+        flex: 100%;
+    }
+    .d2{
+        flex: 100%;
+        justify-content: flex-start;
+    }
 }
