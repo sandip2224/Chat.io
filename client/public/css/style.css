@@ -122,7 +122,7 @@ a {
 .chat-messages {
 	padding: 30px;
 	max-height: 500px;
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 
 .chat-messages .message {
