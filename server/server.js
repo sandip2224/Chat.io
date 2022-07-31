@@ -10,7 +10,7 @@ require("dotenv").config({ path: "./.env" })
 // Utility functions
 const formatMessage = require('../client/utils/messages')
 const { userJoin, getCurrentUser, userLeave, getRoomUsers } = require('../client/utils/users')
-const connectDB = require('./config/db')
+const db = require('./config/db')
 
 // Database Models
 const chatModel = require('./models/Chat')
@@ -26,8 +26,6 @@ const vapidKeys = {
 }
 
 webpush.setVapidDetails('mailto:test@test.com', vapidKeys.publicKey, vapidKeys.privateKey)
-
-connectDB()
 
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, '../client/views'));
@@ -82,7 +80,7 @@ io.on('connection', (socket) => {
 			message: `${frmtMsg.text}`,
 			room: `${user.room}`
 		}
-		const newMsg = new chatModel(obj)
+		const newMsg = await chatModel.create(obj)
 		await newMsg.save()
 		io.to(user.room).emit('message', frmtMsg)
 		axios.post(`${baseUrl}/send-notification`, {
@@ -98,7 +96,13 @@ io.on('connection', (socket) => {
 
 			const { username, room } = user
 
-			await subModel.findOneAndDelete({ name: username, room: room })
+			await subModel.destroy({
+				where: {
+					name: username,
+					room: room
+				}
+			})
+			// await subModel.findOneAndDelete({ name: username, room: room })
 
 			console.log(`Successfully unsubscribed ${user.username} from room ${user.room} notifications`)
 			io.to(user.room).emit('message', formatMessage('Admin', `${user.username} has left the chat`))

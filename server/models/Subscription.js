@@ -1,11 +1,26 @@
-const mongoose = require('mongoose')
+const Sequelize = require('sequelize')
+const db = require('../config/db')
 
-const subSchema = mongoose.Schema({
-	endpoint: { type: String },
-	key_p256dh: { type: String },
-	key_auth: { type: String },
-	name: { type: String },
-	room: { type: String }
+const subSchema = db.define('sub', {
+	endpoint: {
+		type: Sequelize.STRING
+	},
+	key_p256dh: {
+		type: Sequelize.STRING
+	},
+	key_auth: {
+		type: Sequelize.STRING
+	},
+	name: {
+		type: Sequelize.STRING
+	},
+	room: {
+		type: Sequelize.STRING
+	}
 })
 
-module.exports = mongoose.model('subModel', subSchema)
+subSchema.sync()
+	.then(console.log('Subscription Table has been created!!'))
+	.catch(err => console.log('Subscription Table creation failed!!'))
+
+module.exports = subSchema

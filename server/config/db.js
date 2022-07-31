@@ -1,8 +1,17 @@
-const mongoose = require('mongoose');
+const Sequelize = require('sequelize')
 
-const connectDB = async () => {
-    const conn = await mongoose.connect(process.env.MONGO_URI)
-    console.log(`MongoDB Connected now: ${conn.connection.host}`.cyan.underline.bold)
-}
+const sequelize = new Sequelize('chatDB', process.env.USER, process.env.PASS, {
+    host: 'localhost',
+    dialect: 'mysql',
+    pool: {
+        max: 5,
+        min: 0,
+        idle: 10000
+    }
+})
 
-module.exports = connectDB
+sequelize.authenticate()
+    .then(() => console.log(`Database Connected!`.cyan.underline.bold))
+    .catch(err => console.error(`Database connection failed: ${err}`.red.underline))
+
+module.exports = sequelize

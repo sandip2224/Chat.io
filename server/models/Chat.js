@@ -1,10 +1,23 @@
-const mongoose = require('mongoose')
+const Sequelize = require('sequelize')
+const db = require('../config/db')
 
-const chatSchema = mongoose.Schema({
-    username: { type: String },
-    time: { type: String },
-    message: { type: String },
-    room: { type: String }
+const chatSchema = db.define('chat', {
+    username: {
+        type: Sequelize.STRING
+    },
+    time: {
+        type: Sequelize.STRING
+    },
+    message: {
+        type: Sequelize.STRING
+    },
+    room: {
+        type: Sequelize.STRING
+    }
 })
 
-module.exports = mongoose.model('chatModel', chatSchema)
+chatSchema.sync()
+    .then(console.log('Chat table has been created!!'))
+    .catch(err => console.error('Chat table creation failed!!'))
+
+module.exports = chatSchema

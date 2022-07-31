@@ -4,7 +4,7 @@
 	"description": "Real-time chat application with persistent chat history and push notification support on NoSQL backend",
 	"main": "server.js",
 	"scripts": {
-		"start:dev": "set NODE_ENV=development&& node server/server",
+		"start:dev": "set NODE_ENV=development&& nodemon server/server",
 		"start:prod": "set NODE_ENV=production&& node server/server"
 	},
 	"repository": "https://github.com/sandip2224/ChatIO.git",
@@ -17,7 +17,8 @@
 		"ejs": "^3.1.8",
 		"express": "^4.18.1",
 		"moment-timezone": "^0.5.34",
-		"mongoose": "^6.3.3",
+		"mysql2": "^2.3.3",
+		"sequelize": "^6.21.3",
 		"socket.io": "^4.5.0",
 		"web-push": "^3.5.0"
 	},
