@@ -38,20 +38,21 @@ a {
 	font-size: 17px;
 }
 
-.btn:hover{
+.btn:hover {
 	background-color: #dd9519;
 }
 
-#room-name-header, #user-list-header{
+#room-name-header,
+#user-list-header {
 	font-size: 22px;
 }
 
-#room-name{
+#room-name {
 	background: var(--light-color);
 	padding-left: 20px;
 	font-size: 18px;
 	border-radius: 10px;
-	color: #262626	;
+	color: #262626;
 }
 
 /* Chat Page */
@@ -74,7 +75,7 @@ a {
 	justify-content: space-between;
 }
 
-.chat-header h1{
+.chat-header h1 {
 	font-size: 1.6em;
 }
 
@@ -88,7 +89,7 @@ a {
 .chat-main {
 	display: grid;
 	grid-template-columns: 1fr 3fr;
-    /* height: 55vh; */
+	/* height: 55vh; */
 }
 
 .chat-sidebar {
@@ -110,11 +111,11 @@ a {
 }
 
 .chat-sidebar ul li {
-    padding: 10px 0;
-    background: var(--light-color);
-    color: #262626;
-    padding-left: 20px;
-    border-radius: 10px;
+	padding: 10px 0;
+	background: var(--light-color);
+	color: #262626;
+	padding-left: 20px;
+	border-radius: 10px;
 	font-weight: bold;
 	font-size: 18px;
 	margin-bottom: 3px;
@@ -152,24 +153,27 @@ a {
 
 .chat-form-container form {
 	display: flex;
-    justify-content: space-between;
+	justify-content: space-between;
 }
 
 .d1 {
-    flex: 85%;
-    margin: 4px;
+	flex: 85%;
+	margin: 4px;
 }
+
 .d2 {
-    flex: 15%;
-    margin: 4px;
-    display: flex;
-    justify-content: space-around;
+	flex: 15%;
+	margin: 4px;
+	display: flex;
+	justify-content: space-around;
 }
+
 .d2 button {
-    margin: 0 3px;
+	margin: 0 3px;
 }
-.d2 :first-child{
-    margin-left: 0;
+
+.d2 :first-child {
+	margin-left: 0;
 }
 
 .chat-form-container input[type="text"] {
@@ -247,7 +251,9 @@ select {
 	width: 100%;
 }
 
-#user-name {
+#user-name,
+#vapid-public,
+#base-url {
 	display: none;
 }
 
@@ -265,39 +271,42 @@ select {
 	border: none;
 }
 
-	
+
 /* Tooltip CSS */
 .tooltip {
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted black;
+	position: relative;
+	display: inline-block;
+	border-bottom: 1px dotted black;
 }
+
 .tooltip .tooltiptext {
-    visibility: hidden;
-    width: 120px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 4px 3px;
-    position: absolute;
-    z-index: 1;
-    bottom: 150%;
-    left: 50%;
-    margin-left: -60px;
+	visibility: hidden;
+	width: 120px;
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 4px 3px;
+	position: absolute;
+	z-index: 1;
+	bottom: 150%;
+	left: 50%;
+	margin-left: -60px;
 }
+
 .tooltip .tooltiptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 40%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: black transparent transparent transparent;
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: 40%;
+	margin-left: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: black transparent transparent transparent;
 }
+
 .tooltip:hover .tooltiptext {
-    visibility: visible;
+	visibility: visible;
 }
 
 @media (max-width: 700px) {
@@ -310,16 +319,18 @@ select {
 	}
 }
 
-	
+
 @media (max-width: 450px) {
-    .chat-form-container form{
-        flex-direction: column;
-    }
-    .d1{
-        flex: 100%;
-    }
-    .d2{
-        flex: 100%;
-        justify-content: flex-start;
-    }
+	.chat-form-container form {
+		flex-direction: column;
+	}
+
+	.d1 {
+		flex: 100%;
+	}
+
+	.d2 {
+		flex: 100%;
+		justify-content: flex-start;
+	}
 }

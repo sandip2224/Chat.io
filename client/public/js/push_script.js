@@ -1,10 +1,7 @@
-const VAPID_PUBLIC = 'BOp7ObI4oHoXiYMJjUkKC-ZqsVoeaeuQGf0eJrWdiqOi1miXd8HmgnstQX0A1qz6RbQKOziahykhT0EW9bW1q4Q'
-
 const uname = document.getElementById('user-name').innerHTML
 const rname = document.getElementById('room-name').innerHTML
-
-// Change to production url on deployment
-const baseUrl = 'http://localhost:3000'
+const VAPID_PUBLIC = document.getElementById('vapid-public').innerHTML
+const baseUrl = document.getElementById('base-url').innerHTML
 
 let registration;
 

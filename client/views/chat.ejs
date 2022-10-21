@@ -4,8 +4,6 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
-        integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" /> -->
     <link rel="stylesheet" href="css/style.css" />
     <script src="https://kit.fontawesome.com/0a7cb7270a.js" crossorigin="anonymous"></script>
 
@@ -19,6 +17,8 @@
             <h1><i class="fas fa-solid fa-comments"></i> Chat.io</h1>
             <p id="typing"></p>
             <p id="user-name"></p>
+            <p id="vapid-public"></p>
+            <p id="base-url"></p>
             <a href="/" class="btn"><i class="fa fa-solid fa-right-from-bracket"></i> Leave</a>
         </header>
         <main class="chat-main">
@@ -37,12 +37,10 @@
                             <p class="meta">
                                 <%=chat.username%><span>&nbsp;&nbsp;&nbsp;&nbsp;<%=chat.time%></span>
                             </p>
-                            <p class="text">
-                                <%=chat.message%>
-                            </p>
+                            <p class="text"><%=chat.message%></p>
                         </div>
                         <%}%>
-                            <%})%>
+                    <%})%>
             </div>
         </main>
         <div class="chat-form-container">
@@ -61,6 +59,8 @@
     <script>
         document.getElementById('room-name').innerHTML=<%-JSON.stringify(roomVal) %>
         document.getElementById('user-name').innerHTML=<%-JSON.stringify(userVal) %>
+        document.getElementById('vapid-public').innerHTML=<%-JSON.stringify(vapidPublic) %>
+        document.getElementById('base-url').innerHTML=<%-JSON.stringify(baseUrl) %>
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.10.1/qs.min.js"
         integrity="sha512-aTKlYRb1QfU1jlF3k+aS4AqTpnTXci4R79mkdie/bp6Xm51O5O3ESAYhvg6zoicj/PD6VYY0XrYwsWLcvGiKZQ=="
