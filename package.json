@@ -4,7 +4,7 @@
 	"description": "Real-time chat application with persistent chat history and push notification support on NoSQL backend",
 	"main": "server.js",
 	"scripts": {
-		"start:dev": "cross-env NODE_ENV=dev nodemon server/server",
+		"start:dev": "cross-env NODE_ENV=dev nodemon -L server/server",
 		"start:prod": "cross-env NODE_ENV=prod node server/server"
 	},
 	"repository": "https://github.com/sandip2224/ChatIO.git",

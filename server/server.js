@@ -84,7 +84,7 @@ io.on('connection', (socket) => {
 		}
 		const newMsg = new chatModel(obj)
 		await newMsg.save()
-		
+
 		io.to(user.room).emit('message', frmtMsg)
 		axios.post(`${baseUrl}/send-notification`, {
 			msg: frmtMsg

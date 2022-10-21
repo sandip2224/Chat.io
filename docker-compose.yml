@@ -1,0 +1,11 @@
+version: '3.9'
+
+services:
+  chatio_app:
+    container_name: my_chatio_container
+    build: .
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 3000:3000
