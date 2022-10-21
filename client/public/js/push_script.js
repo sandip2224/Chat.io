@@ -1,4 +1,4 @@
-const VAPID_PUBLIC = 'BO_DeYGvxJZ8SfL16UDMlW2XSzXLRldLOjv11Cv1BhDyAiMBoTKZ3uMS6jcuj52z4X5C53BIxQN1dcjy4cVRxHY'
+const VAPID_PUBLIC = 'BOp7ObI4oHoXiYMJjUkKC-ZqsVoeaeuQGf0eJrWdiqOi1miXd8HmgnstQX0A1qz6RbQKOziahykhT0EW9bW1q4Q'
 
 const uname = document.getElementById('user-name').innerHTML
 const rname = document.getElementById('room-name').innerHTML
