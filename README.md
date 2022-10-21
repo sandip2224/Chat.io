@@ -71,7 +71,7 @@
    docker compose up
    ```
 
-#### Test the API locally at _localhost:<PORT>_ or in production at _<>_
+#### Test the API locally at _localhost:PORT_
 
 ---
 
