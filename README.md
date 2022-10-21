@@ -9,10 +9,10 @@
 
 ## Built With
 
-- Frontend: EJS Templating Engine, CSS, Vanilla JavaScript
-- Backend: Node.js, Express.js
-- Libraries: Socket.io, Mongoose
+- Frontend: EJS, Vanilla CSS, JavaScript
+- Backend: Node.js (Express.js)
 - Database: MongoDB Atlas
+- Containerization Framework: Docker
 ---
 
 # 📈 UML Diagram
@@ -27,58 +27,52 @@
    <img src="https://user-images.githubusercontent.com/61842142/172811785-3ed66bf7-0635-42f5-87a5-d58ff641bb0d.png"/ alt="Revamped UML Diagram">
 </details>
 
-
-<!-- ## 🔥 Screenshots
-
-| Landing Page |
-| - |
-| ![client/media/1.PNG](client/media/1.PNG) |
-
-| Chat Page |
-| - |
-| ![client/media/2.PNG](client/media/2.PNG) | -->
-
-## 🚩New Updates
-
-- Added `{user} is typing` functionality.
-- Added persistent chat storage in MongoDB Atlas
-- Added push notification support on local environment
-
 <!-- BUILT WITH -->  
 
-## How to Install Locally
+## 🚩 How to install locally
 
-**1. Fork and clone this repository using**
+#### Fork and clone this repository using
 
-   ```
-   git clone https://github.com/sandip2224/ChatIO.git && cd ChatIO/
+   ```bash
+   git clone https://github.com/sandip2224/ChatIO.git
+   cd ChatIO
    ```  
    
-**2. Install required dependencies/dev dependencies using**  
+#### Create a _.env_ file inside the root directory and include the following:
 
-   ```
-   npm install && npm install -D && touch .env
+   ```bash
+   # Database URI
+   MONGO_DEV_URI=<Unique MongoDB Dev Cluster URL>
+   MONGO_PROD_URI=<Unique MongoDB Prod Cluster URL>
+
+   # VAPID Keys
+   PUBLIC_KEY=<Public VAPID Key>
+   PRIVATE_KEY=<Private VAPID Key>
+
+   # Base URL
+   BASE_URL=<http://localhost:3000> || <>
    ```  
-**3. Add the following key-value pairs inside the .env file**  
+   > Note: Get the following URL from MongoDB official website. You need to configure the `username`, `password` and `dbname` accordingly.
+   ```bash
+   mongodb+srv://<username>:<password>@cluster0.x1ccn.mongodb.net/<dbname>?retryWrites=true&w=majority
+   ```
 
-> Generate the VAPID keys using the following command:  
-> ```
-> ./node_modules/.bin/web-push generate-vapid-keys
-> ```
+#### Generate VAPID keys for push notification support using
 
-  ```
-  MONGO_URI=<Unique MongoDB Cluster URL>
-  PUBLIC_KEY=<Public VAPID Key>
-  PRIVATE_KEY=<Private VAPID Key>
-  BASE_URL=<App Server URL> (Either http://localhost:3000 or deployment origin)
-  ```
+   ```bash
+   npx web-push generate-vapid-keys
+   ```
+   
+   Set these VAPID keys inside the .env file `(mandatory)`
+ 
+#### Start the application locally using
 
-**4. Run server at `localhost:3000` using**  
+   ```bash
+   docker compose up
+   ```
 
-  ```
-  yarn run start:dev (in development mode)
-  yarn run start:prod (in production mode)
-  ```
+#### Test the API locally at _localhost:<PORT>_ or in production at _<>_
+
 ---
 
 ## ✨ Project Maintained By-
