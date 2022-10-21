@@ -27,6 +27,7 @@ const subscribe = async () => {
 		console.log(`[SUCCESS] Subscribed ${uname} to room ${rname} notifications!`)
 	}
 	catch (err) {
+		alert('[ERROR] Subscription failed! Check browser console for details!')
 		console.log('[ERROR] Subscription failed: ', err)
 	}
 }
@@ -53,6 +54,7 @@ const unsubscribe = async () => {
 		}
 	}
 	catch (err) {
+		alert('[ERROR] Unsubscription failed! Check browser console for details!')
 		console.log('[ERROR] Unsubscription failed: ', err)
 	}
 }
@@ -69,5 +71,5 @@ if ('serviceWorker' in navigator) {
 	})
 }
 else {
-	console.log('[ERROR] Notification not supported by this browser!!')
+	console.log('[ERROR] Notifications not supported by this browser!!')
 }

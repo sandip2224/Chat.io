@@ -5,7 +5,7 @@ const http = require('http')
 const colors = require('colors')
 const socketio = require('socket.io')
 const webpush = require('web-push')
-require("dotenv").config({ path: "./.env" })
+require('dotenv').config({ path: './.env' })
 
 // Utility functions
 const formatMessage = require('../client/utils/messages')
@@ -84,6 +84,7 @@ io.on('connection', (socket) => {
 		}
 		const newMsg = new chatModel(obj)
 		await newMsg.save()
+		
 		io.to(user.room).emit('message', frmtMsg)
 		axios.post(`${baseUrl}/send-notification`, {
 			msg: frmtMsg
@@ -94,13 +95,11 @@ io.on('connection', (socket) => {
 	socket.on('disconnect', async () => {
 		const user = userLeave(socket.id)
 		if (user) {
-			console.log('Unregistering user subscription...')
-
 			const { username, room } = user
 
 			await subModel.findOneAndDelete({ name: username, room: room })
 
-			console.log(`Successfully unsubscribed ${user.username} from room ${user.room} notifications`)
+			console.log(`[EXIT] Successfully unsubscribed ${user.username} from room ${user.room} notifications!`)
 			io.to(user.room).emit('message', formatMessage('Admin', `${user.username} has left the chat`))
 
 			// Send users and room info to every client
@@ -114,7 +113,7 @@ io.on('connection', (socket) => {
 
 const conn = server.listen(process.env.PORT || 3000, console.log(`🚀 Server running in ${process.env.NODE_ENV} mode at: ${process.env.BASE_URL}`.green.bold))
 // Handle unhandled promise rejections
-process.on("unhandledRejection", (err, promise) => {
+process.on('unhandledRejection', (err, promise) => {
 	console.log(`Error: ${err.message}`.red)
 	conn.close(() => process.exit(1))
 })

@@ -1,8 +1,12 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
+require('dotenv').config({ path: './.env' })
 
 const connectDB = async () => {
-    const conn = await mongoose.connect(process.env.MONGO_URI)
-    console.log(`MongoDB Connected now: ${conn.connection.host}`.cyan.underline.bold)
+    let URI;
+    if (process.env.NODE_ENV === 'dev') URI = process.env.MONGO_DEV_URI
+    else URI = process.env.MONGO_PROD_URI
+    const conn = await mongoose.connect(URI)
+    console.log(`MongoDB ${process.env.NODE_ENV} cluster connected: ${conn.connection.host}`.cyan.underline.bold)
 }
 
 module.exports = connectDB

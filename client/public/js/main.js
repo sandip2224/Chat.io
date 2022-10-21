@@ -55,5 +55,5 @@ const onkeyFn = () => {
 	socket.emit('starttype', `${username} is typing...`)
 	setTimeout(() => {
 		socket.emit('stoptype', "")
-	}, 3000)
+	}, 2400)
 }
